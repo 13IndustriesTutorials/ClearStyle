@@ -10,4 +10,21 @@ import UIKit
 
 class ToDoItem: NSObject {
    
+    var text:String
+    var completed:Bool
+    
+    init()
+    {
+        self.text = "";
+        self.completed = false;
+        super.init()
+    }
+    
+    init(text:String)
+    {
+        self.text = text;
+        self.completed = false;
+        super.init()
+    }
+    
 }
