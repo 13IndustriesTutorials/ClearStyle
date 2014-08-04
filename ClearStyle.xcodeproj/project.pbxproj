@@ -13,6 +13,8 @@
 		CE678FB81990018E008C78C1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE678FB61990018E008C78C1 /* ViewController.swift */; };
 		CE678FB91990018E008C78C1 /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE678FB71990018E008C78C1 /* ViewController.xib */; };
 		CE678FBB19900510008C78C1 /* ToDoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE678FBA19900510008C78C1 /* ToDoItem.swift */; };
+		CE678FBE19901CC3008C78C1 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE678FBC19901CC3008C78C1 /* TableViewCell.swift */; };
+		CE678FBF19901CC3008C78C1 /* TableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE678FBD19901CC3008C78C1 /* TableViewCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +38,8 @@
 		CE678FB61990018E008C78C1 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		CE678FB71990018E008C78C1 /* ViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ViewController.xib; sourceTree = "<group>"; };
 		CE678FBA19900510008C78C1 /* ToDoItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToDoItem.swift; sourceTree = "<group>"; };
+		CE678FBC19901CC3008C78C1 /* TableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
+		CE678FBD19901CC3008C78C1 /* TableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TableViewCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +85,8 @@
 				CE678FB61990018E008C78C1 /* ViewController.swift */,
 				CE678FB71990018E008C78C1 /* ViewController.xib */,
 				CE678FBA19900510008C78C1 /* ToDoItem.swift */,
+				CE678FBC19901CC3008C78C1 /* TableViewCell.swift */,
+				CE678FBD19901CC3008C78C1 /* TableViewCell.xib */,
 				CE678FA0198FF9D2008C78C1 /* Images.xcassets */,
 				CE678F97198FF9D2008C78C1 /* Supporting Files */,
 			);
@@ -193,6 +199,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CE678FB91990018E008C78C1 /* ViewController.xib in Resources */,
+				CE678FBF19901CC3008C78C1 /* TableViewCell.xib in Resources */,
 				CE678FA1198FF9D2008C78C1 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -212,6 +219,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CE678FB81990018E008C78C1 /* ViewController.swift in Sources */,
+				CE678FBE19901CC3008C78C1 /* TableViewCell.swift in Sources */,
 				CE678F9A198FF9D2008C78C1 /* AppDelegate.swift in Sources */,
 				CE678FBB19900510008C78C1 /* ToDoItem.swift in Sources */,
 			);

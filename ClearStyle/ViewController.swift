@@ -35,7 +35,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        self.tableView.registerClass(TableViewCell.self, forCellReuseIdentifier: "cellId")
+        
         //set the table view cell style
         self.tableView.backgroundColor = UIColor.blackColor()
         self.tableView.separatorStyle = UITableViewCellSeparatorStyle.None
@@ -57,12 +59,12 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     func tableView(tableView: UITableView!, cellForRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCell!
     {
-        let cellIdentifier = "cellID"
-        var cell:UITableViewCell? = tableView.dequeueReusableCellWithIdentifier(cellIdentifier) as? UITableViewCell
+        let cellIdentifier = "cellId"
+        var cell:TableViewCell? = tableView.dequeueReusableCellWithIdentifier(cellIdentifier) as? TableViewCell
         
         if cell == nil
         {
-            cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: cellIdentifier)
+            cell = TableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: cellIdentifier)
         }
         
         let toDoItem:ToDoItem = self.toDoItems[indexPath.item] as ToDoItem
