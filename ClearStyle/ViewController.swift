@@ -16,6 +16,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     init(nibName nibNameOrNil: String!, bundle nibBundleOrNil: NSBundle!)
     {
+        //create some default do to items
         self.toDoItems = [ToDoItem(text: "Feed the cat"),
         ToDoItem(text: "Buy eggs"),
         ToDoItem(text: "Pack bags for WWDC"),
@@ -28,17 +29,21 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         ToDoItem(text: "Learn to juggle"),
         ToDoItem(text: "Give up")]
         super.init(nibName: nibName, bundle: nibBundleOrNil)
+        
+
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        //set the table view cell style
+        self.tableView.backgroundColor = UIColor.blackColor()
+        self.tableView.separatorStyle = UITableViewCellSeparatorStyle.None
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        
     }
     
     func numberOfSectionsInTableView(tableView: UITableView!) -> Int
@@ -65,7 +70,43 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         return cell
     }
     
-    //MARK: - Navigation
+    func tableView(tableView: UITableView!, willDisplayCell cell: UITableViewCell!, forRowAtIndexPath indexPath: NSIndexPath!)
+    {
+        cell.backgroundColor = self.colorForIndex(indexPath.row)
+    }
+    
+    func tableView(tableView: UITableView!, heightForRowAtIndexPath indexPath: NSIndexPath!) -> CGFloat
+    {
+        return 50.0
+    }
+    
+    //MARK: - Custom Method
+    func colorForIndex(index:Int)->UIColor
+    {
+        let itemCount:Float = Float(self.toDoItems.count-1);
+        let greenVal:CGFloat = CGFloat(Float(index) / itemCount) * 0.60
+        let color = UIColor(red: 1.0, green: greenVal, blue: 0.0, alpha: 1.0)
+        return color
+    }
 
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
