@@ -18,15 +18,19 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     {
         //create some default do to items
         self.toDoItems = [ToDoItem(text: "Feed the cat"),
-        ToDoItem(text: "Buy eggs"),
-        ToDoItem(text: "Pack bags for WWDC"),
-        ToDoItem(text: "Rule the web"),
-        ToDoItem(text: "Buy a new iPhone"),
-        ToDoItem(text: "Find missing socks"),
-        ToDoItem(text: "Write a new tutorial"),
-        ToDoItem(text: "Master Swift"),
-        ToDoItem(text: "Learn to draw"),
-        ToDoItem(text: "Learn to juggle"),
+            ToDoItem(text: "Buy eggs"),
+            ToDoItem(text: "Pack bags for WWDC"),
+            ToDoItem(text: "Rule the web"),
+            ToDoItem(text: "Buy a new iPhone"),
+            ToDoItem(text: "Find missing socks"),
+            ToDoItem(text: "Write a new tutorial"),
+            ToDoItem(text: "Master Swift"),
+            ToDoItem(text: "Learn to draw"),
+            ToDoItem(text: "Learn to juggle"),
+            ToDoItem(text: "Find Mochi"),
+            ToDoItem(text: "Have a snack"),
+            ToDoItem(text: "Write some code"),
+            ToDoItem(text: "Watch a little TV"),
         ToDoItem(text: "Give up")]
         super.init(nibName: nibName, bundle: nibBundleOrNil)
         

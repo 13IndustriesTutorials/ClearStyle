@@ -59,8 +59,8 @@ class TableViewCell: UITableViewCell {
     {
         var translation = (gestureRecognizer as UIPanGestureRecognizer).translationInView(self.superview)
 
-        
-        if fabs(translation.x) > fabs(translation.y)
+        //check if th gesture is horizontal
+        if fabsf(Float(translation.x)) > fabsf(Float(translation.y))
         {
             return true
         }
@@ -80,7 +80,9 @@ class TableViewCell: UITableViewCell {
         {
             //translate the center
             var translation = recognizer.translationInView(self)
-            self.center = CGPointMake(self.originalCenter.x + translation.x, self.originalCenter.y + translation.y)
+            
+            //only move the x coordinate for the pan
+            self.center = CGPointMake(self.originalCenter.x + translation.x, self.originalCenter.y)
             
             //determine whether the item has been dragged far enough to delete
             self.deleteOnDragRelease = self.frame.origin.x < -self.frame.size.width/2
