@@ -8,9 +8,10 @@
 
 import UIKit
 
-class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, TableViewCellDelegate {
 
-    var toDoItems:[AnyObject];
+    var toDoItems:[ToDoItem];
+    var delegate:TableViewCellDelegate?
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -73,6 +74,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         let toDoItem:ToDoItem = self.toDoItems[indexPath.item] as ToDoItem
         cell!.textLabel.text = toDoItem.text
+        
+        //set the cell's delegate to the vc
+        cell!.delegate = self;
+        cell!.toDoItem = toDoItem;
+        
         return cell
     }
     
@@ -95,6 +101,15 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         return color
     }
 
+    //MARK: TableViewCell Delegate Method
+    func toDoItemDeleted(toDoItem:ToDoItem)
+    {
+        var index = (self.toDoItems as NSArray).indexOfObjectIdenticalTo(toDoItem)
+        self.toDoItems.removeAtIndex(index)
+        self.tableView.beginUpdates()
+        self.tableView.deleteRowsAtIndexPaths([NSIndexPath(forRow: index, inSection: 0)], withRowAnimation: UITableViewRowAnimation.Fade)
+        self.tableView.endUpdates()
+    }
 
 }
 

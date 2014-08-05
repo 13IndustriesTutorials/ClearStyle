@@ -9,11 +9,19 @@
 import UIKit
 import QuartzCore
 
+//define a deletion protocol for the cell
+protocol TableViewCellDelegate
+{
+    func toDoItemDeleted(toDoItem:ToDoItem)
+}
+
 class TableViewCell: UITableViewCell {
 
     var gradientLayer:CAGradientLayer
     var originalCenter:CGPoint
     var deleteOnDragRelease:Bool
+    var toDoItem:ToDoItem?
+    var delegate:TableViewCellDelegate?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -91,11 +99,23 @@ class TableViewCell: UITableViewCell {
         if recognizer.state == UIGestureRecognizerState.Ended
         {
             var originalFrame = CGRectMake(0, self.frame.origin.y, self.bounds.size.width, self.bounds.size.height)
+            println("\(self.deleteOnDragRelease)")
+            
+            //if the item is not being deleted, return to original position
             if !self.deleteOnDragRelease {
                 UIView.animateWithDuration(0.2, animations: {
                     //animation
                     self.frame = originalFrame
                     })
+            }
+            
+            if self.deleteOnDragRelease
+            {
+                
+                if let item  = self.toDoItem
+                {
+                    self.delegate!.toDoItemDeleted(item)
+                }
             }
         }
     }
