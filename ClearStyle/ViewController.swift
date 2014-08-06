@@ -67,13 +67,23 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         let cellIdentifier = "cellId"
         var cell:TableViewCell? = tableView.dequeueReusableCellWithIdentifier(cellIdentifier) as? TableViewCell
         
-        if cell == nil
-        {
+        if cell == nil{
             cell = TableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: cellIdentifier)
         }
         
         let toDoItem:ToDoItem = self.toDoItems[indexPath.item] as ToDoItem
-        cell!.textLabel.text = toDoItem.text
+        
+        if toDoItem.completed{
+            //use strike through text
+            var key = String(NSStrikethroughStyleAttributeName)
+            var options = [key : NSUnderlineStyle.StyleSingle]
+            var attributedString = NSMutableAttributedString(string:toDoItem.text)
+            cell!.textLabel.attributedText =  attributedString
+            //cell!.textLabel.text = "Hey text updated!"//toDoItem.text
+        }
+        else{
+            cell!.textLabel.text = toDoItem.text
+        }
         
         //set the cell's delegate to the vc
         cell!.delegate = self;
@@ -84,7 +94,13 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     func tableView(tableView: UITableView!, willDisplayCell cell: UITableViewCell!, forRowAtIndexPath indexPath: NSIndexPath!)
     {
-        cell.backgroundColor = self.colorForIndex(indexPath.row)
+        let toDoItem:ToDoItem = self.toDoItems[indexPath.item] as ToDoItem
+        
+        if toDoItem.completed{
+            cell.backgroundColor = UIColor(red: 0.0, green: 0.6, blue: 0.0, alpha: 1.0)
+        }else {
+            cell.backgroundColor = self.colorForIndex(indexPath.row)
+        }
     }
     
     func tableView(tableView: UITableView!, heightForRowAtIndexPath indexPath: NSIndexPath!) -> CGFloat
@@ -108,6 +124,14 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         self.toDoItems.removeAtIndex(index)
         self.tableView.beginUpdates()
         self.tableView.deleteRowsAtIndexPaths([NSIndexPath(forRow: index, inSection: 0)], withRowAnimation: UITableViewRowAnimation.Fade)
+        self.tableView.endUpdates()
+    }
+    
+     func toDoItemCompleted(toDoItem:ToDoItem)
+     {
+        var index = (self.toDoItems as NSArray).indexOfObjectIdenticalTo(toDoItem)
+        self.tableView.beginUpdates()
+        self.tableView.reloadRowsAtIndexPaths([NSIndexPath(forRow: index, inSection: 0)], withRowAnimation: UITableViewRowAnimation.Automatic)
         self.tableView.endUpdates()
     }
 
