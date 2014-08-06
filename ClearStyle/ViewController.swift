@@ -122,9 +122,43 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     {
         var index = (self.toDoItems as NSArray).indexOfObjectIdenticalTo(toDoItem)
         self.toDoItems.removeAtIndex(index)
-        self.tableView.beginUpdates()
-        self.tableView.deleteRowsAtIndexPaths([NSIndexPath(forRow: index, inSection: 0)], withRowAnimation: UITableViewRowAnimation.Fade)
-        self.tableView.endUpdates()
+        
+        var visibleCells:NSArray = self.tableView.visibleCells()
+        var lastView = visibleCells.lastObject as UIView
+        var startAnimating = false
+        var delay = 0.0
+        
+        for cell in visibleCells as [TableViewCell] {
+            
+            if startAnimating {
+                
+                UIView.animateWithDuration(0.3, delay: delay, options: UIViewAnimationOptions.CurveEaseInOut, animations:{
+                        cell.frame = CGRectOffset(cell.frame, 0.0, -cell.frame.size.height)
+                        
+                    } , completion:{
+                        (finished:Bool) in
+                        
+                        if cell == lastView {
+                            self.tableView.reloadData()
+                        }
+                        })
+                
+                delay += 0.03
+            }
+            
+            if cell.toDoItem == toDoItem
+            {
+                startAnimating = true
+                cell.hidden = true
+                
+            }
+        }
+        
+        
+        
+//        self.tableView.beginUpdates()
+//        self.tableView.deleteRowsAtIndexPaths([NSIndexPath(forRow: index, inSection: 0)], withRowAnimation: UITableViewRowAnimation.Fade)
+//        self.tableView.endUpdates()
     }
     
      func toDoItemCompleted(toDoItem:ToDoItem)
