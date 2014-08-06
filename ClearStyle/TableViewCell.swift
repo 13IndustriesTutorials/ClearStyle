@@ -26,8 +26,9 @@ class TableViewCell: UITableViewCell {
     var toDoItem:ToDoItem?
     var delegate:TableViewCellDelegate?
     
-    var tickLabel:UILabel?
-    var crossLabel:UILabel?
+    //user lazy instantiation for labels
+    lazy var tickLabel:UILabel = self.initializeTickLabel()
+    lazy var crossLabel:UILabel = self.initializeCrossLabel()
     
     let CuesMargin:CGFloat = 10.0
     let CuesWidth:CGFloat = 50.0
@@ -54,18 +55,9 @@ class TableViewCell: UITableViewCell {
         self.gradientLayer.locations = [0.0, 0.1, 0.95, 1.00]
         self.layer.insertSublayer(self.gradientLayer, atIndex: 0)
         
-        //create the cue labels
-        self.tickLabel = self.createCueLabel()
-        self.tickLabel!.text = "\u{2713}"  //checkmark
-        self.tickLabel!.textAlignment = NSTextAlignment.Right
+        //add labels to view
         self.addSubview(self.tickLabel)
-        
-        self.crossLabel = self.createCueLabel()
-        self.crossLabel!.text =  "\u{2717}" //x mark
-        self.crossLabel!.textAlignment = NSTextAlignment.Left
         self.addSubview(self.crossLabel)
-        
-        
         
         //create gesture recognizer
         let recognizer = UIPanGestureRecognizer(target: self, action: "handlePan:")
@@ -83,8 +75,8 @@ class TableViewCell: UITableViewCell {
     {
         super.layoutSubviews()
         self.gradientLayer.frame =  self.bounds
-        self.tickLabel!.frame = CGRectMake(-self.CuesWidth - self.CuesMargin, 0, self.CuesWidth, self.bounds.size.height)
-        self.crossLabel!.frame = CGRectMake(self.bounds.size.width + self.CuesMargin, 0, self.CuesWidth, self.bounds.size.height)
+        self.tickLabel.frame = CGRectMake(-self.CuesWidth - self.CuesMargin, 0, self.CuesWidth, self.bounds.size.height)
+        self.crossLabel.frame = CGRectMake(self.bounds.size.width + self.CuesMargin, 0, self.CuesWidth, self.bounds.size.height)
     }
     
     func createCueLabel() -> UILabel
@@ -95,6 +87,24 @@ class TableViewCell: UITableViewCell {
         label.backgroundColor = UIColor.clearColor()
         return label
         
+    }
+    
+    func initializeTickLabel() -> UILabel
+    {
+        //create the label
+        var label = self.createCueLabel()
+        label.text = "\u{2713}"  //checkmark
+        label.textAlignment = NSTextAlignment.Right
+        return label
+    }
+    
+    func initializeCrossLabel() -> UILabel
+    {
+        //create the label
+        var label = self.createCueLabel()
+        label.text = "\u{2717}"  //x mark
+        label.textAlignment = NSTextAlignment.Left
+        return label
     }
     
     //override the gesture recognizer start
@@ -134,12 +144,12 @@ class TableViewCell: UITableViewCell {
             self.deleteOnDragRelease = self.frame.origin.x < -self.frame.size.width/2
             
             var cueAlpha:CGFloat = fabs(self.frame.origin.x) / (self.frame.size.width / 2)
-            self.tickLabel!.alpha =  cueAlpha
-            self.crossLabel!.alpha = cueAlpha
+            self.tickLabel.alpha =  cueAlpha
+            self.crossLabel.alpha = cueAlpha
             
             //set the color of the cue labels
-            self.tickLabel!.textColor = self.markCompleteOnDragRelease ? UIColor.greenColor() : UIColor.whiteColor()
-            self.crossLabel!.textColor = self.deleteOnDragRelease ? UIColor.redColor() : UIColor.whiteColor()
+            self.tickLabel.textColor = self.markCompleteOnDragRelease ? UIColor.greenColor() : UIColor.whiteColor()
+            self.crossLabel.textColor = self.deleteOnDragRelease ? UIColor.redColor() : UIColor.whiteColor()
             
         }
         
