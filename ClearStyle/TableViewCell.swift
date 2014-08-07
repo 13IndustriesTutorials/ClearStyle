@@ -37,8 +37,16 @@ class TableViewCell: UITableViewCell {
         super.awakeFromNib()
         
     }
+
+     required init(coder aDecoder: NSCoder!) {
+        self.deleteOnDragRelease = false
+        self.markCompleteOnDragRelease = false
+        self.originalCenter = CGPointMake(0, 0)
+        self.gradientLayer = CAGradientLayer()
+        super.init(coder: aDecoder)
+    }
     
-    init(style: UITableViewCellStyle, reuseIdentifier: String!)
+     override init(style: UITableViewCellStyle, reuseIdentifier: String!)
     {
         
         self.gradientLayer = CAGradientLayer()

@@ -24,7 +24,7 @@ class TableView: UIView, UIScrollViewDelegate {
     var cellClass:AnyClass?
     var reuseCells:NSMutableSet
     
-    init(frame: CGRect) {
+    override init(frame: CGRect) {
         
         self.scrollView = UIScrollView()
         self.scrollView.backgroundColor = UIColor.clearColor()
@@ -35,7 +35,7 @@ class TableView: UIView, UIScrollViewDelegate {
     }
     
     
-    init(coder aDecoder: NSCoder!)
+    required init(coder aDecoder: NSCoder!)
     {
         self.scrollView = UIScrollView()
         self.scrollView.backgroundColor = UIColor.clearColor()
@@ -64,7 +64,7 @@ class TableView: UIView, UIScrollViewDelegate {
             var topEdgeForRow =  CGFloat(index) * self.RowHeight
             var frame = CGRectMake(0, topEdgeForRow, self.scrollView.frame.size.width, self.RowHeight)
             cell!.frame = frame
-            self.scrollView.addSubview(cell)
+            self.scrollView.addSubview(cell!)
         }
     }
     
@@ -74,7 +74,7 @@ class TableView: UIView, UIScrollViewDelegate {
         self.refreshView()
     }
     
-    public func registerClassForCells(cellClass:AnyClass)
+    func registerClassForCells(cellClass:AnyClass)
     {
         self.cellClass = cellClass
     }

@@ -12,13 +12,18 @@ class ViewController: UIViewController, TableViewDataSource, TableViewCellDelega
 
     var toDoItems:[ToDoItem];
     var delegate:TableViewCellDelegate?
-    
+
     @IBOutlet weak var tableView: TableView!
+
     
+    required init(coder aDecoder: NSCoder!) {
+//        self.toDoItems = [ToDoItem]()
+        fatalError("NSCoding not supported")
+    }
     
-    
-    init(nibName nibNameOrNil: String!, bundle nibBundleOrNil: NSBundle!)
+     override init(nibName nibNameOrNil: String!, bundle nibBundleOrNil: NSBundle!)
     {
+
         //create some default do to items
         self.toDoItems = [ToDoItem(text: "Feed the cat"),
             ToDoItem(text: "Buy eggs"),
@@ -36,8 +41,6 @@ class ViewController: UIViewController, TableViewDataSource, TableViewCellDelega
             ToDoItem(text: "Watch a little TV"),
         ToDoItem(text: "Give up")]
         super.init(nibName: nibName, bundle: nibBundleOrNil)
-        
-
     }
     
     override func viewDidLoad() {

@@ -13,7 +13,7 @@ class ToDoItem: NSObject {
     var text:String
     var completed:Bool
     
-    init()
+    override init()
     {
         self.text = "";
         self.completed = false;
