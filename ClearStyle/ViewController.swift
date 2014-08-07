@@ -8,12 +8,14 @@
 
 import UIKit
 
-class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, TableViewCellDelegate {
+class ViewController: UIViewController, TableViewDataSource, TableViewCellDelegate {
 
     var toDoItems:[ToDoItem];
     var delegate:TableViewCellDelegate?
     
-    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var tableView: TableView!
+    
+    
     
     init(nibName nibNameOrNil: String!, bundle nibBundleOrNil: NSBundle!)
     {
@@ -41,11 +43,15 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.tableView.registerClass(TableViewCell.self, forCellReuseIdentifier: "cellId")
+        //self.tableView.registerClass(TableViewCell.self, forCellReuseIdentifier: "cellId")
+        self.tableView.registerClassForCells(TableViewCell)
+        
+        self.tableView.dataSource = self
         
         //set the table view cell style
         self.tableView.backgroundColor = UIColor.blackColor()
-        self.tableView.separatorStyle = UITableViewCellSeparatorStyle.None
+        
+        //self.tableView.separatorStyle = UITableViewCellSeparatorStyle.None
     }
 
     override func didReceiveMemoryWarning() {
@@ -53,60 +59,79 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
     }
     
-    func numberOfSectionsInTableView(tableView: UITableView!) -> Int
+    func numberOfRows() -> Int
     {
-        return 1
+        return toDoItems.count
     }
     
-    func tableView(tableView: UITableView!, numberOfRowsInSection section: Int) -> Int
+    func cellForRow(row: Int) -> UIView
     {
-        return self.toDoItems.count
-    }
-    func tableView(tableView: UITableView!, cellForRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCell!
-    {
-        let cellIdentifier = "cellId"
-        var cell:TableViewCell? = tableView.dequeueReusableCellWithIdentifier(cellIdentifier) as? TableViewCell
-        
-        if cell == nil{
-            cell = TableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: cellIdentifier)
-        }
-        
-        let toDoItem:ToDoItem = self.toDoItems[indexPath.item] as ToDoItem
-        
-        if toDoItem.completed{
-            //use strike through text
-            var key = String(NSStrikethroughStyleAttributeName)
-            var options = [key : NSUnderlineStyle.StyleSingle]
-            var attributedString = NSMutableAttributedString(string:toDoItem.text)
-            cell!.textLabel.attributedText =  attributedString
-            //cell!.textLabel.text = "Hey text updated!"//toDoItem.text
-        }
-        else{
-            cell!.textLabel.text = toDoItem.text
-        }
-        
-        //set the cell's delegate to the vc
-        cell!.delegate = self;
-        cell!.toDoItem = toDoItem;
-        
+        println("\(row)")
+        var cellIdentifier:String = "Cell"
+        var cell:TableViewCell = TableViewCell(style: UITableViewCellStyle.Value1, reuseIdentifier:cellIdentifier)
+        var item:ToDoItem = self.toDoItems[row-1]
+        cell.toDoItem = item
+        cell.textLabel.text = cell.toDoItem!.text
+        cell.delegate = self
+        cell.backgroundColor = self.colorForIndex(row)
         return cell
     }
     
-    func tableView(tableView: UITableView!, willDisplayCell cell: UITableViewCell!, forRowAtIndexPath indexPath: NSIndexPath!)
-    {
-        let toDoItem:ToDoItem = self.toDoItems[indexPath.item] as ToDoItem
-        
-        if toDoItem.completed{
-            cell.backgroundColor = UIColor(red: 0.0, green: 0.6, blue: 0.0, alpha: 1.0)
-        }else {
-            cell.backgroundColor = self.colorForIndex(indexPath.row)
-        }
-    }
+//    func numberOfSectionsInTableView(tableView: UITableView!) -> Int
+//    {
+//        return 1
+//    }
     
-    func tableView(tableView: UITableView!, heightForRowAtIndexPath indexPath: NSIndexPath!) -> CGFloat
-    {
-        return 50.0
-    }
+//    func tableView(tableView: UITableView!, numberOfRowsInSection section: Int) -> Int
+//    {
+//        return self.toDoItems.count
+//    }
+    
+//    func tableView(tableView: UITableView!, cellForRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCell!
+//    {
+//        let cellIdentifier = "cellId"
+//        var cell:TableViewCell? = tableView.dequeueReusableCellWithIdentifier(cellIdentifier) as? TableViewCell
+//        
+//        if cell == nil{
+//            cell = TableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: cellIdentifier)
+//        }
+//        
+//        let toDoItem:ToDoItem = self.toDoItems[indexPath.item] as ToDoItem
+//        
+//        if toDoItem.completed{
+//            //use strike through text
+//            var key = String(NSStrikethroughStyleAttributeName)
+//            var options = [key : NSUnderlineStyle.StyleSingle]
+//            var attributedString = NSMutableAttributedString(string:toDoItem.text)
+//            cell!.textLabel.attributedText =  attributedString
+//            //cell!.textLabel.text = "Hey text updated!"//toDoItem.text
+//        }
+//        else{
+//            cell!.textLabel.text = toDoItem.text
+//        }
+//        
+//        //set the cell's delegate to the vc
+//        cell!.delegate = self;
+//        cell!.toDoItem = toDoItem;
+//        
+//        return cell
+//    }
+    
+//    func tableView(tableView: UITableView!, willDisplayCell cell: UITableViewCell!, forRowAtIndexPath indexPath: NSIndexPath!)
+//    {
+//        let toDoItem:ToDoItem = self.toDoItems[indexPath.item] as ToDoItem
+//        
+//        if toDoItem.completed{
+//            cell.backgroundColor = UIColor(red: 0.0, green: 0.6, blue: 0.0, alpha: 1.0)
+//        }else {
+//            cell.backgroundColor = self.colorForIndex(indexPath.row)
+//        }
+//    }
+    
+//    func tableView(tableView: UITableView!, heightForRowAtIndexPath indexPath: NSIndexPath!) -> CGFloat
+//    {
+//        return 50.0
+//    }
     
     //MARK: - Custom Method
     func colorForIndex(index:Int)->UIColor
@@ -120,53 +145,48 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     //MARK: TableViewCell Delegate Method
     func toDoItemDeleted(toDoItem:ToDoItem)
     {
-        var index = (self.toDoItems as NSArray).indexOfObjectIdenticalTo(toDoItem)
-        self.toDoItems.removeAtIndex(index)
-        
-        var visibleCells:NSArray = self.tableView.visibleCells()
-        var lastView = visibleCells.lastObject as UIView
-        var startAnimating = false
-        var delay = 0.0
-        
-        for cell in visibleCells as [TableViewCell] {
-            
-            if startAnimating {
-                
-                UIView.animateWithDuration(0.3, delay: delay, options: UIViewAnimationOptions.CurveEaseInOut, animations:{
-                        cell.frame = CGRectOffset(cell.frame, 0.0, -cell.frame.size.height)
-                        
-                    } , completion:{
-                        (finished:Bool) in
-                        
-                        if cell == lastView {
-                            self.tableView.reloadData()
-                        }
-                        })
-                
-                delay += 0.03
-            }
-            
-            if cell.toDoItem == toDoItem
-            {
-                startAnimating = true
-                cell.hidden = true
-                
-            }
-        }
-        
-        
-        
-//        self.tableView.beginUpdates()
-//        self.tableView.deleteRowsAtIndexPaths([NSIndexPath(forRow: index, inSection: 0)], withRowAnimation: UITableViewRowAnimation.Fade)
-//        self.tableView.endUpdates()
+//        var index = (self.toDoItems as NSArray).indexOfObjectIdenticalTo(toDoItem)
+//        self.toDoItems.removeAtIndex(index)
+//        
+//        var visibleCells:NSArray = self.tableView.visibleCells()
+//        var lastView = visibleCells.lastObject as UIView
+//        var startAnimating = false
+//        var delay = 0.0
+//        
+//        for cell in visibleCells as [TableViewCell] {
+//            
+//            if startAnimating {
+//                
+//                UIView.animateWithDuration(0.3, delay: delay, options: UIViewAnimationOptions.CurveEaseInOut, animations:{
+//                        cell.frame = CGRectOffset(cell.frame, 0.0, -cell.frame.size.height)
+//                        
+//                    } , completion:{
+//                        (finished:Bool) in
+//                        
+//                        if cell == lastView {
+//                            self.tableView.reloadData()
+//                        }
+//                        })
+//                
+//                delay += 0.03
+//            }
+//            
+//            if cell.toDoItem == toDoItem
+//            {
+//                startAnimating = true
+//                cell.hidden = true
+//                
+//            }
+//        }
+//
     }
     
      func toDoItemCompleted(toDoItem:ToDoItem)
      {
-        var index = (self.toDoItems as NSArray).indexOfObjectIdenticalTo(toDoItem)
-        self.tableView.beginUpdates()
-        self.tableView.reloadRowsAtIndexPaths([NSIndexPath(forRow: index, inSection: 0)], withRowAnimation: UITableViewRowAnimation.Automatic)
-        self.tableView.endUpdates()
+//        var index = (self.toDoItems as NSArray).indexOfObjectIdenticalTo(toDoItem)
+//        self.tableView.beginUpdates()
+//        self.tableView.reloadRowsAtIndexPaths([NSIndexPath(forRow: index, inSection: 0)], withRowAnimation: UITableViewRowAnimation.Automatic)
+//        self.tableView.endUpdates()
     }
 
 }

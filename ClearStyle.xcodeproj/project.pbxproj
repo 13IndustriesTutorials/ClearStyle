@@ -15,6 +15,7 @@
 		CE678FBB19900510008C78C1 /* ToDoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE678FBA19900510008C78C1 /* ToDoItem.swift */; };
 		CE678FBE19901CC3008C78C1 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE678FBC19901CC3008C78C1 /* TableViewCell.swift */; };
 		CE678FBF19901CC3008C78C1 /* TableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE678FBD19901CC3008C78C1 /* TableViewCell.xib */; };
+		CEE3384519929767009CC76B /* TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE3384419929767009CC76B /* TableView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +41,7 @@
 		CE678FBA19900510008C78C1 /* ToDoItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToDoItem.swift; sourceTree = "<group>"; };
 		CE678FBC19901CC3008C78C1 /* TableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		CE678FBD19901CC3008C78C1 /* TableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TableViewCell.xib; sourceTree = "<group>"; };
+		CEE3384419929767009CC76B /* TableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +87,7 @@
 				CE678FB61990018E008C78C1 /* ViewController.swift */,
 				CE678FB71990018E008C78C1 /* ViewController.xib */,
 				CE678FBA19900510008C78C1 /* ToDoItem.swift */,
+				CEE3384419929767009CC76B /* TableView.swift */,
 				CE678FBC19901CC3008C78C1 /* TableViewCell.swift */,
 				CE678FBD19901CC3008C78C1 /* TableViewCell.xib */,
 				CE678FA0198FF9D2008C78C1 /* Images.xcassets */,
@@ -219,6 +222,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CE678FB81990018E008C78C1 /* ViewController.swift in Sources */,
+				CEE3384519929767009CC76B /* TableView.swift in Sources */,
 				CE678FBE19901CC3008C78C1 /* TableViewCell.swift in Sources */,
 				CE678F9A198FF9D2008C78C1 /* AppDelegate.swift in Sources */,
 				CE678FBB19900510008C78C1 /* ToDoItem.swift in Sources */,
@@ -396,6 +400,7 @@
 				CE678FB2198FF9D2008C78C1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		CE678FB3198FF9D2008C78C1 /* Build configuration list for PBXNativeTarget "ClearStyleTests" */ = {
 			isa = XCConfigurationList;
@@ -404,6 +409,7 @@
 				CE678FB5198FF9D2008C78C1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
