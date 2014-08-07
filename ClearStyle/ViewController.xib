@@ -6,7 +6,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ViewController" customModule="ClearStyle" customModuleProvider="target">
             <connections>
-                <outlet property="tableView" destination="YBD-ib-fLe" id="vpV-Fr-c8u"/>
+                <outlet property="tableView" destination="YBD-ib-fLe" id="S4f-Q9-S6k"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="jze-LH-1uA"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>

@@ -17,7 +17,6 @@ class ViewController: UIViewController, TableViewDataSource, TableViewCellDelega
 
     
     required init(coder aDecoder: NSCoder!) {
-//        self.toDoItems = [ToDoItem]()
         fatalError("NSCoding not supported")
     }
     
@@ -40,7 +39,11 @@ class ViewController: UIViewController, TableViewDataSource, TableViewCellDelega
             ToDoItem(text: "Write some code"),
             ToDoItem(text: "Watch a little TV"),
         ToDoItem(text: "Give up")]
-        super.init(nibName: nibName, bundle: nibBundleOrNil)
+        
+        //force the nibName to not be nil - beta 5 version release error
+        let nib = nibNameOrNil ?? "TableView"
+        super.init(nibName: nib, bundle: nibBundleOrNil)
+//        super.init(nibName: nibName, bundle: nibBundleOrNil)
     }
     
     override func viewDidLoad() {
