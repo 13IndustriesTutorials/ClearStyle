@@ -72,10 +72,9 @@ class ViewController: UIViewController, TableViewDataSource, TableViewCellDelega
     
     func cellForRow(row: Int) -> UIView
     {
-        println("\(row)")
         var cellIdentifier:String = "Cell"
         var cell:TableViewCell = TableViewCell(style: UITableViewCellStyle.Value1, reuseIdentifier:cellIdentifier)
-        var item:ToDoItem = self.toDoItems[row-1]
+        var item:ToDoItem = self.toDoItems[row]
         cell.toDoItem = item
         cell.textLabel.text = cell.toDoItem!.text
         cell.delegate = self

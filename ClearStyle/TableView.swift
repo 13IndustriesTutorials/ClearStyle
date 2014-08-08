@@ -65,13 +65,15 @@ class TableView: UIView, UIScrollViewDelegate {
         //remove cells that are no longer visible
         for cell in self.cellSubviews()
         {
-          if cell.frame.origin.y + cell.frame.size.height < self.scrollView.contentOffset.y
-          {
-             self.recycleCell(cell as TableViewCell)
+            //check if cell is off top of view
+            if cell.frame.origin.y + cell.frame.size.height < self.scrollView.contentOffset.y
+            {
+                self.recycleCell(cell as TableViewCell)
+                
+            }
             
-          }
-            
-            if cell.frame.origin.y > self.scrollView.contentOffset.y + self.scrollView.frame.size.height
+            //check if cell is off bottom of view
+            if cell.frame.origin.y > (self.scrollView.contentOffset.y + self.scrollView.frame.size.height)
             {
                 self.recycleCell(cell as TableViewCell)
             }
@@ -80,14 +82,17 @@ class TableView: UIView, UIScrollViewDelegate {
         var firstVisibleIndex:Int = Int(max(0, floor(self.scrollView.contentOffset.y / self.RowHeight)))
         var lastVisibleIndex:Int = Int(min(self.dataSource!.numberOfRows(), firstVisibleIndex + 1 + Int(ceil(self.scrollView.frame.height / self.RowHeight))))
         
+        //var index = firstVisibleIndex
         
         for index in firstVisibleIndex ..< lastVisibleIndex
         {
             var cell = self.cellForRow(index)
             
-            if cell != nil
+            if cell == nil
             {
+                //create a new cell and add to the subview
                 var cell = self.dataSource?.cellForRow(index)
+                println("cell: \(cell)")
                 var topEdgeForRow = CGFloat(index) * self.RowHeight
                 cell?.frame = CGRectMake(0, topEdgeForRow, self.scrollView.frame.size.width, self.RowHeight)
                 self.scrollView.insertSubview(cell!, atIndex: 0)
@@ -132,12 +137,17 @@ class TableView: UIView, UIScrollViewDelegate {
     func cellForRow(row:Int)->UIView?
     {
         var topEdgeRow = CGFloat(row) * self.RowHeight
+        //println("row: \(row)")
         
-        for cell in self.subviews
+        for cell in self.subviews as [UIView]
         {
+//            println("cell y val: \(cell.frame.origin.y)")
+//            println("cell: \(cell)")
+           
             if cell.frame.origin.y == topEdgeRow
             {
-                return cell as TableViewCell
+                println("cell for row returned: \(row)")
+                return cell
             }
         }
         
